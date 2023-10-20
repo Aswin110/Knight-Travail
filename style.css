@@ -2,19 +2,21 @@ body {
     text-align: center;
 }
 
-.cell {
+.black-cell {
+    background-color: black;
     height: 70px;
     width: 70px;
     border: 1.5px solid grey;
     border-style: inset;
-}
-
-.black-cell {
-    background-color: black;
+    color: white;
 }
 
 .white-cell {
     background-color: white;
+    height: 75px;
+    width: 75px;
+    border: 1.5px solid grey;
+    border-style: inset;
 }
 
 h1 {
@@ -39,4 +41,9 @@ h1 {
 
 .clear-board-button:hover{
     border: 2px solid rgb(0, 0, 0);
+}
+
+img {
+    height: 60px;
+    width: 60px;
 }

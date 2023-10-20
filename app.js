@@ -58,7 +58,7 @@ class Board {
 		// 	if (next[0] >= 0 && next[0] <= 7 && next[1] >= 0 && next[1] <=7) {
 		// 		array.push(next);
 		// 	}	
-		// }population
+		// }
 
 		// for (const key in root) {
 		// 	if (root.hasOwnProperty(key)&& root[key] ===null) {
