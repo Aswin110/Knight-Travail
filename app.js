@@ -1,3 +1,5 @@
+import { gameBoard } from "./gameBoard.js";
+
 class Tree {
 	constructor(data = [] , move1 = null, move2 = null, move3 = null, move4 = null, move5 = null, move6 = null, move7 = null, move8 = null) {
 		this.data = data;
@@ -58,11 +60,11 @@ class Board {
 		// 	}	
 		// }population
 
-		for (const key in root) {
-			if (root.hasOwnProperty(key)&& root[key] ===null) {
-				console.log(`${key}: ${root[key]}`); 
-			}
-		}
+		// for (const key in root) {
+		// 	if (root.hasOwnProperty(key)&& root[key] ===null) {
+		// 		console.log(`${key}: ${root[key]}`); 
+		// 	}
+		// }
 
 		for (let i = 0; i < this.directions.length; i++) {
 			let direction = this.directions[i];
@@ -87,7 +89,7 @@ class Board {
 	// 	}
 	// }
 }
-
+gameBoard();
 let tree = new Tree();
 let board = new Board(tree);
 console.log(board.createArray([0,0], [2,1]));

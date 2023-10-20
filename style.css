@@ -1,0 +1,42 @@
+body {
+    text-align: center;
+}
+
+.cell {
+    height: 70px;
+    width: 70px;
+    border: 1.5px solid grey;
+    border-style: inset;
+}
+
+.black-cell {
+    background-color: black;
+}
+
+.white-cell {
+    background-color: white;
+}
+
+h1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* border: 1px solid black; */
+}
+
+.centre {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* height: 85vh;  */
+    /* border:1px solid black ; */
+}
+
+.clear-board-button {
+    border: 1px solid rgb(171, 58, 58);
+    cursor: pointer;
+}
+
+.clear-board-button:hover{
+    border: 2px solid rgb(0, 0, 0);
+}
