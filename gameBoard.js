@@ -1,7 +1,12 @@
 const gameBoard = () => {
 	const table = document.querySelector('.centre');
+
 	const chessTable = document.createElement('table');
 	chessTable.className = 'tableCentre';
+
+	const resetKnightButton = document.querySelector('.clear');
+	let defaultCoord = [0,0];
+
 	const img = document.createElement('img');
 	img.src = '/knight.svg'; 
 
@@ -29,20 +34,27 @@ const gameBoard = () => {
     
 	const allNodes = chessTable.querySelectorAll('td');
 
-	setKnight([0, 0]);
+	setKnight(defaultCoord);
 
-	allNodes.forEach(function(allNode) {
-		allNode.addEventListener('click', function(){
-			let coordinate = this.getAttribute('data-array');
-			console.log('coordinate',coordinate,typeof(coordinate)); //dataArray = JSON.parse("[1, 2, 3]"); use the following code to convert the string "" to an array:
-			removeKnight();
-			allNode.appendChild(img); //this is the real argument using this argument for debugging.
+	//changes knight position
+	// function changePosition(){
+		allNodes.forEach(function(node) {
+			node.addEventListener('click', function() {
+				coord(node);
+			});
 		});
-	});
+	// }
+    
+	function coord(node) {
+		let coordinate = node.getAttribute('data-array');
+		removeKnight();
+		node.appendChild(img); 
+		return coordinate;
+	}
 
+	//remove knight from chess board
 	function removeKnight()  {
 		allNodes.forEach((node)=>{
-			// console.log(node.hasChildNodes());
 			if(node.hasChildNodes()) {   
 				node.removeChild(node.childNodes[0]);
 			} 
@@ -51,25 +63,37 @@ const gameBoard = () => {
 
 	table.appendChild(chessTable);
 
+
 	function setKnight(arr = []) {
-		allNodes.forEach((allNode) => {
-			let coordinate = allNode.getAttribute('data-array');
-            console.log(arr,' === ',JSON.parse(coordinate));
-            console.log(typeof(arr),' === ',typeof(JSON.parse(coordinate)));
-            console.log(arr === JSON.parse(coordinate));
+		allNodes.forEach((node) => {
+			let coordinate = node.getAttribute('data-array');
 			if (arraysAreEqual(arr, JSON.parse(coordinate))) {
-				allNode.appendChild(img);
+				node.appendChild(img);
+			}
+			console.log('img',node.contains(img));
+			if (node.contains(img)){
+				let coordinate = node.getAttribute('data-array');
+				console.log(coordinate, JSON.parse(coordinate));
+				defaultCoord = JSON.parse(coordinate);
+				return defaultCoord;
 			}
 		});
 	}
 
-    function arraysAreEqual(arr1, arr2) {
-        if (arr1.length !== arr2.length) return false;
-        for (let i = 0; i < arr1.length; i++) {
-            if (arr1[i] !== arr2[i]) return false;
-        }
-        return true;
-    }
+	function arraysAreEqual(arr1, arr2) {
+		if (arr1.length !== arr2.length) return false;
+		for (let i = 0; i < arr1.length; i++) {
+			if (arr1[i] !== arr2[i]) return false;
+		}
+		return true;
+	}
+    
+
+	resetKnightButton.addEventListener('click' ,function(){
+		setKnight(defaultCoord);
+	});
+
+	return { defaultCoord, };
 };
 
 export { gameBoard };
