@@ -38,11 +38,11 @@ const gameBoard = () => {
 
 	//changes knight position
 	// function changePosition(){
-		allNodes.forEach(function(node) {
-			node.addEventListener('click', function() {
-				coord(node);
-			});
+	allNodes.forEach(function(node) {
+		node.addEventListener('click', function() {
+			coord(node);
 		});
+	});
 	// }
     
 	function coord(node) {

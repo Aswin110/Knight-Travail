@@ -1,72 +1,29 @@
 import { gameBoard } from './gameBoard.js';
 
-const squareRegistry = new Map();
-
-const ChessSquare = (x, y) => {
-	const xPos = x;
-	const yPos = y;
-	let predecessor;
-
-	const KNIGHT_OFFSETS = [
-		[1, 2], [1, -2],
-		[2, 1], [2, -1],
-		[-1, 2], [-1, -2],
-		[-2, 1], [-2, -1]
+function neighbourCoordinates(arr){
+	let neighbour = [];
+	let directions = [
+		[-1,-2],
+		[-2,-1],
+		[ 1,-2],
+		[ 2,-1],
+		[ 2, 1],
+		[ 1, 2],
+		[-1, 2],
+		[-2, 1]
 	];
 
-	const getPredecessor = () => predecessor ;
-	const setPredecessor = (newPred) => { predecessor ||= newPred; };
-
-	const name = () => `${x}, ${y}`;
-
-	const createKnightMoves = () => {
-		return KNIGHT_OFFSETS.map(newSquareFrom).filter(Boolean);
-	};
-
-	const newSquareFrom = ([ xOffset, yOffset ]) => {
-		const [newX, newY] = [xPos + xOffset, yPos + yOffset];
-		if (0 <= newX && newX < 8 && 0 <= newY && newY < 8) {
-			return ChessSquare(newX, newY);
+	for (let direction of directions) {
+		let value = [arr[0]-direction[0],arr[1]-direction[1]];
+		if (value[0] > 0 && value[0] < 7 && value[1] > 0 && value[1] < 7 ){
+			neighbour.push(value);
 		}
-	};
-
-	if (squareRegistry.has(name())) {
-		return squareRegistry.get(name());
-	} else {
-		const newSquare = { name, getPredecessor, setPredecessor, createKnightMoves };
-		squareRegistry.set(name(), newSquare);
-		console.log('squareRegistry',squareRegistry);
-		return newSquare;
 	}
-};
+	console.log(neighbour);
+	return neighbour;
+}
 
-const knightsTravails = (start, finish) => {
-	squareRegistry.clear();
 
-	const origin = ChessSquare(...start);
-	console.log('origin',origin);
-	const target = ChessSquare(...finish);
-	console.log('target',target);
 
-	const queue = [target];
-	console.log(queue,queue);
-	while (!queue.includes(origin)) {
-		const currentSquare = queue.shift();
-
-		const enqueueList = currentSquare.createKnightMoves();
-		enqueueList.forEach((square) => square.setPredecessor(currentSquare));
-		queue.push(...enqueueList);
-	}
-	const path = [origin];
-	while (!path.includes(target)) {
-		const nextSquare = path.at(-1).getPredecessor();
-		path.push(nextSquare);
-	}
-	console.log(`The shortest path was ${path.length - 1} moves!`);
-	console.log('The moves were:');
-	path.forEach(square => console.log(square.name()));
-};
-
+neighbourCoordinates([7,7]);
 gameBoard();
-
-knightsTravails([0,0], [6,6]);
