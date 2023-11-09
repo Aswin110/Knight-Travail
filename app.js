@@ -32,26 +32,42 @@ function storeParent () {
 	return map;
 }
 
-function knightMoves(start,stop) {
+let path = [] ;
+function getPath(arr, parentBoard){
+	if (parentBoard.get(`[${arr}]`) === null) {
+		path.push(arr);
+		return path;}
+	else {
+		path.push(arr);
+		getPath(parentBoard.get(`[${arr}]`),parentBoard);
+	}
+	return path;
+}
+
+function knightMoves(start,end) {
 	let boardOfParent = storeParent();
 	let u;
 	let queue = [start];
-	while (u !== stop) {
+	let pathFound = false;
+
+	while (queue.length > 0 && !pathFound) {
 		u = queue.shift();
 		let nextMove = neighbourCoordinates(u);
-		console.log('next move',nextMove);
 		nextMove.map((element) => {
-
+			if (element[0] === end[0] && element[1] === end[1]) {
+				boardOfParent.set(`[${element}]`, u);
+				pathFound = true;
+				let exactPath = getPath(element,boardOfParent);
+				exactPath.reverse();
+				console.log(exactPath);
+				return 'path';
+			}
 			if (!(boardOfParent.get(`[${element}]`))) {
 				boardOfParent.set(`[${element}]`, u);
+				queue.push(element);
 			}
 		});
-		
-		console.log('check the moves',nextMove.includes(stop));
-		break;
 	}
-	console.log('parent added',boardOfParent);
-	console.log('u',u);
 }
 
 neighbourCoordinates([7,7]);

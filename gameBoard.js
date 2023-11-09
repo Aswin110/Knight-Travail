@@ -70,10 +70,8 @@ const gameBoard = () => {
 			if (arraysAreEqual(arr, JSON.parse(coordinate))) {
 				node.appendChild(img);
 			}
-			console.log('img',node.contains(img));
 			if (node.contains(img)){
 				let coordinate = node.getAttribute('data-array');
-				console.log(coordinate, JSON.parse(coordinate));
 				defaultCoord = JSON.parse(coordinate);
 				return defaultCoord;
 			}
