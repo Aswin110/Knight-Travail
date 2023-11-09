@@ -19,11 +19,41 @@ function neighbourCoordinates(arr){
 			neighbour.push(value);
 		}
 	}
-	console.log(neighbour);
 	return neighbour;
 }
 
+function storeParent () {
+	let map = new Map();
+	for (let i = 0; i < 8;i++) {
+		for (let j = 0;j < 8;j++){
+			map.set(`[${i},${j}]`,null);
+		}
+	}
+	return map;
+}
 
+function knightMoves(start,stop) {
+	let boardOfParent = storeParent();
+	let u;
+	let queue = [start];
+	while (u !== stop) {
+		u = queue.shift();
+		let nextMove = neighbourCoordinates(u);
+		console.log('next move',nextMove);
+		nextMove.map((element) => {
+
+			if (!(boardOfParent.get(`[${element}]`))) {
+				boardOfParent.set(`[${element}]`, u);
+			}
+		});
+		
+		console.log('check the moves',nextMove.includes(stop));
+		break;
+	}
+	console.log('parent added',boardOfParent);
+	console.log('u',u);
+}
 
 neighbourCoordinates([7,7]);
 gameBoard();
+knightMoves([0,0],[3,3]);
