@@ -1,14 +1,19 @@
+import knightMoves from './app.js';
+
 const gameBoard = () => {
 	const table = document.querySelector('.centre');
-
 	const chessTable = document.createElement('table');
 	chessTable.className = 'tableCentre';
 
 	const resetKnightButton = document.querySelector('.clear');
-	let defaultCoord = [0,0];
+	const setKnightButton = document.querySelector('.set');
+	const travailButton = document.querySelector('.travail');
 
+	let defaultCoord = [0,0];
+	let endCoordinate =[];
 	const img = document.createElement('img');
 	img.src = '/knight.svg'; 
+	let clickOnSetKnight = false;
 
 	for(let i = 0; i < 8; i++) {
 		const tableRow = document.createElement('tr');
@@ -20,7 +25,7 @@ const gameBoard = () => {
 			tableColumn.textContent = `${row} ,${column}`;
 			tableColumn.setAttribute('data-array',`[${row}, ${column}]`);
 		
-			if ((i+j)% 2 == 0){
+			if ( (i+j) % 2 == 0 ){
 				tableColumn.className = 'black-cell';
 			} else {
 				tableColumn.className = 'white-cell';
@@ -31,19 +36,8 @@ const gameBoard = () => {
 		chessTable.appendChild(tableRow);
 	}
     
-    
 	const allNodes = chessTable.querySelectorAll('td');
-
 	setKnight(defaultCoord);
-
-	//changes knight position
-	// function changePosition(){
-	allNodes.forEach(function(node) {
-		node.addEventListener('click', function() {
-			coord(node);
-		});
-	});
-	// }
     
 	function coord(node) {
 		let coordinate = node.getAttribute('data-array');
@@ -76,6 +70,7 @@ const gameBoard = () => {
 				return defaultCoord;
 			}
 		});
+		console.log('start',defaultCoord);
 	}
 
 	function arraysAreEqual(arr1, arr2) {
@@ -86,12 +81,79 @@ const gameBoard = () => {
 		return true;
 	}
     
+	setKnightButton.addEventListener('click',function(){
+		if (clickOnSetKnight === false) {
+			clickOnSetKnight = true;
+		} else {
+			clickOnSetKnight = false;
+		}
 
-	resetKnightButton.addEventListener('click' ,function(){
-		setKnight(defaultCoord);
+		if (setKnightButton.classList.contains('click')){
+			setKnightButton.classList.remove('click');
+		} else {
+			setKnightButton.classList.add('click');
+		}
+		
+		if (clickOnSetKnight) {
+			allNodes.forEach(function(node) {
+				node.onclick = function() {
+					coord(node);
+					defaultCoord = JSON.parse(coord(node));
+					console.log('start',defaultCoord);
+					return defaultCoord;
+				};
+			});
+		} else (
+			allNodes.forEach(function(node) {
+				node.onclick = null;
+			})
+		);
+	
 	});
 
-	return { defaultCoord, };
+	resetKnightButton.addEventListener('click' ,function(){
+		setKnight(defaultCoord = [0,0]);
+	});
+
+	//changes knight position
+	// function changePosition(){
+	// if (clickOnSetKnight) {
+	// 	allNodes.forEach(function(node) {
+	// 		node.addEventListener('click', function() {
+	// 			coord(node);
+	// 		});
+	// 	});
+	// }
+	// }
+
+
+	travailButton.addEventListener('click', function() {
+		allNodes.forEach(function(node) {
+			node.onclick = null;
+		});
+
+		setKnightButton.classList.remove('click');
+
+		if (travailButton.classList.contains('click')){
+			travailButton.classList.remove('click');
+		} else {
+			travailButton.classList.add('click');
+		}
+
+		allNodes.forEach(function(node) {
+			node.addEventListener('click', function() {
+				endCoordinate = JSON.parse(node.getAttribute('data-array'));
+				console.log('start',defaultCoord,'end',endCoordinate);
+				let moves = knightMoves(defaultCoord,endCoordinate);
+				console.log('moves',moves);
+			});
+		});
+	});
+
+	return { defaultCoord, endCoordinate };
 };
 
-export { gameBoard };
+gameBoard();
+
+let moves = knightMoves([0,0],[7,7]);
+console.log('moves',moves);

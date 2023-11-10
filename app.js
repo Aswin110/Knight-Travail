@@ -1,5 +1,3 @@
-import { gameBoard } from './gameBoard.js';
-
 function neighbourCoordinates(arr){
 	let neighbour = [];
 	let directions = [
@@ -76,14 +74,13 @@ function knightMoves(start,end) {
 				boardOfParent.set(`[${element}]`, u);
 				queue.push(element);
 			}
-			
-		});
-		
+		});	
 	}
-	// console.log('boardOfParent',boardOfParent);
 	return exactPath;
 }
 
-gameBoard();
+export default knightMoves;
+
 let moves = knightMoves([0,0],[7,7]);
+
 result(moves);

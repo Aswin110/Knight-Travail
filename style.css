@@ -47,3 +47,7 @@ img {
     height: 60px;
     width: 60px;
 }
+
+.click {
+    border: 2px solid blue;
+}
