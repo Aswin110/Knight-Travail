@@ -4,7 +4,7 @@ const gameBoard = () => {
 	const table = document.querySelector('.centre');
 	const chessTable = document.createElement('table');
 	chessTable.className = 'tableCentre';
-
+	const resultDisplay = document.querySelector('.result');
 	const resetKnightButton = document.querySelector('.clear');
 	const setKnightButton = document.querySelector('.set');
 	const travailButton = document.querySelector('.travail');
@@ -46,7 +46,6 @@ const gameBoard = () => {
 		return coordinate;
 	}
 
-	//remove knight from chess board
 	function removeKnight()  {
 		allNodes.forEach((node)=>{
 			if(node.hasChildNodes()) {   
@@ -115,21 +114,11 @@ const gameBoard = () => {
 		setKnight(defaultCoord = [0,0]);
 	});
 
-	//changes knight position
-	// function changePosition(){
-	// if (clickOnSetKnight) {
-	// 	allNodes.forEach(function(node) {
-	// 		node.addEventListener('click', function() {
-	// 			coord(node);
-	// 		});
-	// 	});
-	// }
-	// }
-
 	function result(arr) {
 		let arrToString = arr.map((element)=> `[${element.toString()}]`).toString();
 		let distance = arr.length - 1;
 		console.log(`You made it in ${distance} moves!  Here's your path: ${arrToString}`);
+		resultDisplay.textContent = `You made it in ${distance} moves!  Here's your path: ${arrToString}`;
 	}
 
 	function moveKnight (arr) {
