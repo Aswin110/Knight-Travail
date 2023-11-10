@@ -22,7 +22,7 @@ const gameBoard = () => {
 		for(let j = 0; j < 8; j++) {
 			const tableColumn = document.createElement('td');
 			let column = j;
-			tableColumn.textContent = `${row} ,${column}`;
+			// tableColumn.textContent = `${row} ,${column}`;
 			tableColumn.setAttribute('data-array',`[${row}, ${column}]`);
 		
 			if ( (i+j) % 2 == 0 ){
@@ -132,6 +132,12 @@ const gameBoard = () => {
 		console.log(`You made it in ${distance} moves!  Here's your path: ${arrToString}`);
 	}
 
+	function moveKnight (arr) {
+		for (let i = 0; i < arr.length;i++){
+			setTimeout(() => setKnight(arr[i]), i * 1000);
+		}
+	}
+
 	travailButton.addEventListener('click', function() {
 		allNodes.forEach(function(node) {
 			node.onclick = null;
@@ -151,6 +157,7 @@ const gameBoard = () => {
 				console.log('start',defaultCoord,'end',endCoordinate);
 				let moves = knightMoves(defaultCoord,endCoordinate);
 				result(moves);
+				moveKnight(moves);
 			});
 		});
 	});
