@@ -41,12 +41,6 @@ function getPath(arr, parentBoard, path = []){
 	}
 }
 
-function result(arr) {
-	let arrToString = arr.map((element)=> `[${element.toString()}]`).toString();
-	let distance = arr.length - 1;
-	console.log(`You made it in ${distance} moves!  Here's your path: ${arrToString}`);
-}
-
 function knightMoves(start,end) {
 	let boardOfParent = storeParent();
 	let u;
@@ -81,6 +75,3 @@ function knightMoves(start,end) {
 
 export default knightMoves;
 
-let moves = knightMoves([0,0],[7,7]);
-
-result(moves);

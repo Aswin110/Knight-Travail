@@ -126,6 +126,11 @@ const gameBoard = () => {
 	// }
 	// }
 
+	function result(arr) {
+		let arrToString = arr.map((element)=> `[${element.toString()}]`).toString();
+		let distance = arr.length - 1;
+		console.log(`You made it in ${distance} moves!  Here's your path: ${arrToString}`);
+	}
 
 	travailButton.addEventListener('click', function() {
 		allNodes.forEach(function(node) {
@@ -145,7 +150,7 @@ const gameBoard = () => {
 				endCoordinate = JSON.parse(node.getAttribute('data-array'));
 				console.log('start',defaultCoord,'end',endCoordinate);
 				let moves = knightMoves(defaultCoord,endCoordinate);
-				console.log('moves',moves);
+				result(moves);
 			});
 		});
 	});
@@ -154,6 +159,3 @@ const gameBoard = () => {
 };
 
 gameBoard();
-
-let moves = knightMoves([0,0],[7,7]);
-console.log('moves',moves);
