@@ -126,7 +126,7 @@ const gameBoard = () => {
 			setTimeout(() => setKnight(arr[i]), i * 1000);
 		}
 	}
-
+	
 	travailButton.addEventListener('click', function() {
 		allNodes.forEach(function(node) {
 			node.onclick = null;
